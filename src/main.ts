@@ -1,4 +1,4 @@
-import { PublicKey, Connection, clusterApiUrl, Keypair } from "@solana/web3.js";
+import * as anchor from "@project-serum/anchor";
 import {
   AggregatorAccount,
   loadSwitchboardProgram,
@@ -6,7 +6,7 @@ import {
 
 // SOL/USD Feed https://switchboard.xyz/explorer/2/GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 // Create your own feed here https://publish.switchboard.xyz/
-const switchboardFeed = new PublicKey(
+const switchboardFeed = new anchor.web3.PublicKey(
   "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"
 );
 
@@ -14,8 +14,8 @@ async function main() {
   // load the switchboard program
   const program = await loadSwitchboardProgram(
     "devnet",
-    new Connection(clusterApiUrl("devnet")),
-    Keypair.fromSeed(new Uint8Array(32).fill(1)) // using dummy keypair since we wont be submitting any transactions
+    new anchor.web3.Connection(anchor.web3.clusterApiUrl("devnet")),
+    anchor.web3.Keypair.fromSeed(new Uint8Array(32).fill(1)) // using dummy keypair since we wont be submitting any transactions
   );
 
   // load the switchboard aggregator
